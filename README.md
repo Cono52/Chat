@@ -1,6 +1,11 @@
+<style>
+  p {
+    text-align: center;
+  }
+</style>
 <h2>A basic chat app using socket.io and react.</h2>
 
-<p>Never had an idea for what I wanted to build, beyond a simple chat app, when I first came across socket.io ages ago...and never did SO here it is.</p>
+<div>Never had an idea for what I wanted to build, beyond a simple chat app, when I first came across socket.io ages ago...and never did SO here it is.</div>
 <br/>
 <h3>Give a name to join:</h3>
 <img src="assets/preview2.png" style='display: block; padding-top: 20px; margin: auto; max-width: 700px' width="75%" height="50%" />
