@@ -1,32 +1,104 @@
 .App {
-  text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.convo_box {
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  font-family: Helvetica;
+  height: 500px;
+  position: relative;
+  max-width: 500px;
+  box-shadow: 1px 1px 10px 0px silver;
+  margin-top: 10%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.message_box {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  flex-grow: 1;
+}
+
+.typing_status {
+  position: absolute;
   color: white;
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+  top: -40px;
+  font-size: 11px;
+  padding: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.chat_form {
+  min-height: 35px;
+  width: 100%;
+  display: flex;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chat_input {
+  flex-grow: 1;
+  padding: 1ch;
+}
+
+.message {
+  padding: 10px;
+  background-color: greenyellow;
+  max-width: 80%;
+  display: inline;
+  max-width: 80%;
+  word-break: normal;
+  align-self: flex-start;
+  margin: 10px;
+}
+
+.mine {
+  align-self: flex-end;
+  background-color: lightgreen;
+}
+
+.send_text_button {
+  background-color: #00e200;
+  color: white;
+  border: 0;
+  width: 100px;
+}
+
+.user_name_input_container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_name_input_container form {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_name_input_container form * {
+  margin: 10px;
+}
+
+.user_name_input_container form input {
+  padding: 1ch;
+  border: 0;
+  border-radius: 3px;
+}
+
+.user_name_input_container form button {
+  background-color: lightskyblue;
+  font-weight: bold;
+  border-radius: 3px;
+  width: 100px;
+  color: white;
+  height: calc(100px / (1.618 * 2));
+  cursor: pointer;
 }
