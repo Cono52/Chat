@@ -3,40 +3,47 @@ const router = express.Router();
 const app = require("express")();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
+const {
+  joinNewUser,
+  disconnectUser,
+  addTypingUser,
+  removeTypingUser
+} = require("./socketActions");
 
-const users = {};
-const typingUsers = {};
+let users = {};
+let typingUsers = {};
 
 io.on("connection", socket => {
-  socket.on("chat message", function(msg) {
+  socket.on("chat message", msg => {
     io.emit("chat message", `${users[socket.id]}:  ${msg}`);
   });
 
-  socket.on("join chatroom", function(userName) {
-    if (Object.keys(users).find(id => users[id] === userName)) {
+  socket.on("join chatroom", userName => {
+    const newUsers = joinNewUser(socket, users, userName);
+    if (!newUsers) {
       socket.emit("reject", "Already take name");
       return;
     }
+    users = newUsers;
     socket.emit("approved", "success");
     socket.broadcast.emit("chat message", userName + " has joined");
-    users[`${socket.id}`] = userName;
     io.emit("updateUsers", Object.values(users));
   });
 
-  socket.on("disconnect", function() {
+  socket.on("disconnect", () => {
     io.emit("chat message", `${users[socket.id]} left.`);
-    delete users[socket.id];
+    users = disconnectUser(socket, users);
     io.emit("updateUsers", Object.values(users));
   });
 
   // Keep track of who is typing or idle
-  socket.on("typing", function() {
-    typingUsers[socket.id] = users[socket.id];
+  socket.on("typing", () => {
+    typingUsers = addTypingUser(socket, users, typingUsers);
     io.emit("typing", Object.values(typingUsers));
   });
 
-  socket.on("idle", function() {
-    delete typingUsers[socket.id];
+  socket.on("idle", () => {
+    typingUsers = removeTypingUser(socket, typingUsers);
     io.emit("idle", Object.values(typingUsers));
   });
 });
